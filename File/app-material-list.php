@@ -80,7 +80,7 @@ include('MainPage.php');
                                     </thead>
                                     <tbody>
 
-                                        <tr>
+                              
 
                                             <?php
                                            
@@ -91,133 +91,117 @@ include('MainPage.php');
                                                 $yn=(int)$y_data['Name'];
                                                 if($y==$yn){
                                                     $_SESSION['yearofmat']=$y_data['ID'];
-                                                }}
+                                                }
+                                            }
                                             //session of id year used at now
                                             $SYM=$_SESSION['yearofmat'];
 
                                             $sqlmy="SELECT * FROM materialbyyear WHERE Year_Id=$SYM";
+
                                             $maty= mysqli_query($link, $sqlmy);
-                                            while ($maty_data =  mysqli_fetch_array($maty)) {
-                                                $matID=$maty_data['Material_Id'];
-                                                $sqlm="SELECT *FROM materials Where ID=$matID";
+                                            while ($maty_data = mysqli_fetch_array($maty)) 
+                                            {
+                                                $matID=$maty_data['Material_Id'];                               
+                                                $sqlm="SELECT materials.ID , materials.AName, materials.EName , departments.Name as depName , levels.Name as levelName , courses.Name as course_name , teachers.AName as teacher_name , materials.HighestDegreeCourse , materials.CodeNumber , materials.NumberUnit FROM materials JOIN departments ON materials.Department_Id = departments.ID join levels on materials.Level_Id=levels.ID JOIN courses on materials.Course_Id = courses.ID join teachers on teachers.ID = materials.Teacher_Id where materials.ID=$matID";
+   
                                                 $material = mysqli_query($link, $sqlm);
-                                                while ($material_data =  mysqli_fetch_array($material)) {
+                                                    while ($material_data = mysqli_fetch_assoc($material)) {
 
+                                                        ?>
+<tr>
+ 
+                                            <td scope="row" align="center" style="vertical-align:top;">
 
+                                                                                                    <br>
+                                                                                                    <center>
+                                                                                                    <?php
 
+                                                                                                    echo $material_data['AName'];
+                                                                                                    // yid
+                                                
+                                                                                                    ?>
+                                                                                                        </center>
+                                            </td>
 
-                                            ?>
+                                            <!-- --------------------------------------------------  -->
 
-                                                <td scope="row" align="center" style="vertical-align:top;">
-                                                    <br>
-                                                    <?php
-                                                    echo $material_data['AName'];
-                                                    // yid
+                                            <td>
+                                                <br>
+                                                <center>
+                                                <?php
+                                                            //departmentID
+                                                            echo $material_data['depName'];
+                                                            
+                                                            ?>
+                                                </center>
+                                            </td>
 
-                                                    ?>
-                                                </td>
-                                                <td scope="row" align="center" style="vertical-align:top;">
-                                                    <br>
-                                                    
-                                                    <?php
-                                                    //departmentID
-                                                    $d=$material_data['Department_Id'];
-                                                    $sqld="SELECT * FROM departments WHERE ID=$d";
-                                                    $matd= mysqli_query($link, $sqld);
-                                                    while ($matd_data =  mysqli_fetch_array($matd)) {
-                                                        echo $matd_data['Name'];}
-                                                    ?>
-                                                </td>
-                                                <td scope="row" align="center" style="vertical-align:top;">
-                                                    <br>
+                                            <td>
+                                                <center> 
+                                                <br>
                                                     <?php
                                                     //levelID
-                                                    $l=$material_data['Level_Id'];
-                                                    $sqll="SELECT * FROM levels WHERE ID=$l";
-                                                    $matl= mysqli_query($link, $sqll);
-                                                    while ($matl_data =  mysqli_fetch_array($matl)) {
-                                                        echo $matl_data['Name'];}
+                                                    echo $material_data['levelName'];
+                                                  
                                                     
 
                                                     ?>
+                                                </center>
+                                            </td>
 
-                                                </td>
-                                                <td scope="row" align="center" style="vertical-align:top;">
-                                                    <br>
-                                                    <?php
+                                            <td>
+                                                <br>
+                                                <center>
+                                                <?php
                                                     //courseID
-                                                    $C=$material_data['Course_Id'];
-                                                    $sqlC="SELECT * FROM courses WHERE ID=$C";
-                                                    $matC= mysqli_query($link, $sqlC);
-                                                    while ($matC_data =  mysqli_fetch_array($matC)) {
-                                                        echo $matC_data['Name'];}
+                                                    echo $material_data['course_name'];
 
                                                     ?>
+                                                </center>
+                                            </td>
 
-                                                </td>
-                                                <td scope="row" align="center" style="vertical-align:top;">
+                                            <td>
                                                     <br>
+                                                    <center>
                                                     <?php
+                                                            //TeacherID
+                                                            echo $material_data['teacher_name'];
 
-                                                    //TeacherID
-                                                    $T=$material_data['Teacher_Id'];
-                                                    $sqlt="SELECT * FROM teachers WHERE ID=$T";
-                                                    $matt= mysqli_query($link, $sqlt);
-                                                    while ($matt_data =  mysqli_fetch_array($matt)) {
-                                                        echo $matt_data['AName'];}
+                                                            ?>
+                                                    </center>
+                                            </td>
 
-                                                    ?>
-
-                                                </td>
-                                                <td class="mt-5" align="center" style="vertical-align:top;">
-                                                    <br>
+                                            <td>
+                                                <br>
+                                                <center>
+                                             
                                                     
-                                                    <button type="button" data-toggle="modal" data-target="#update_Material<?php echo  $maty_data['ID'] ?>" class="btn btn-primary mr-1 mb-1 ">
+                                                    <button type="button" data-toggle="modal" data-target="#update_Material<?php echo $material_data['ID']; ?>" class="btn btn-primary mr-1 mb-1 ">
                                                         <i class="feather icon-edit"></i>
                                                         تعديل </button>
 
                                                     <?php
-
                                                     include('updateMaterial.php');
                                                     ?>
+                                                </center>
+                                            </td>
 
-                                                </td>
-                                                <td>
-                                                    <br>
-                                                    <div class="ag-btns d-flex flex-wrap ">
+</tr>
 
-                                                        <div class="action-btns">
-                                                            <div class="btn-dropdown ">
 
-                                                                <div class="btn-group dropdown actions-dropodown">
+                                                    <?php
 
-                                                                    <button type="button" class="btn btn-white px-2 py-75 dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                        Actions
-                                                                    </button>
-                                                                    <div class="dropdown-menu">
-                                                                        <a class="dropdown-item" href="<?php echo 'AddDegreeMaterial.php?id=' . $maty_data['ID'] ; ?>"><i class="feather icon-plus"></i>
-                                                                            درجات السعي </a>
-                                                                        <a class="dropdown-item" href="<?php echo 'app-Upload-list.php?id=' .  $maty_data['ID']; ?>"><i class="feather icon-list"></i> اضافة الطلاب المحملين </a>
-                                                                        <a class="dropdown-item" href="<?php echo 'displaymiddigree.php?id=' .  $maty_data['ID']; ?>"><i class="feather icon-list"></i> عرض درجات السعي </a>
-                                                                        <a class="dropdown-item" href="<?php echo 'AddFDegreeMaterial.php?id=' . $maty_data['ID']; ?>"><i class="feather icon-plus"></i>
-                                                                            الدرجة النهائية </a>
-                                                                        <a class="dropdown-item" href="<?php echo 'AddFDegreeMaterial2.php?id=' . $maty_data['ID']; ?>"><i class="feather icon-plus"></i>
-                                                                            درجه امتحان الدور الثاني </a>
-                                                                        <a class="dropdown-item" href="<?php echo 'AddFDegreeMaterial3.php?id=' . $maty_data['ID']; ?>"><i class="feather icon-plus"></i>
-                                                                            درجه امتحان الدور الثالث </a>
-                                                                        <a class="dropdown-item" href="<?php echo 'displayfinaldigree.php?id=' .  $maty_data['ID']; ?>"><i class="feather icon-list"></i> عرض الدرجات النهائية </a>
 
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                                    }
 
-                                        </tr>
-                                    <?php
-                                            }}
-                                    ?>
+                                            }   
+                                      
+
+                                        
+                                      ?>
+
+
+                                  
 
                                     </tbody>
                                 </table>
