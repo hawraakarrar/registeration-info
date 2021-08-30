@@ -1,4 +1,4 @@
-<div class="modal fade" id="update_Material<?php echo $maty_data['ID'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="update_Material<?php echo $material_data['ID']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
         <div class="modal-content">
             <section class="todo-form">
@@ -11,24 +11,14 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <?php
-                    $MyID=$maty_data['ID'];
-                    $sqlmy="SELECT * FROM materialbyyear WHERE ID=$MyID";
-                    $maty= mysqli_query($link, $sqlmy);
-                    while ($maty_data =  mysqli_fetch_array($maty)) {
-                        $matID=$maty_data['Material_Id'];
-                        $sqlm="SELECT *FROM materials Where ID=$matID";
-                        $material = mysqli_query($link, $sqlm);
-                        while ($material_data =  mysqli_fetch_array($material)) {
-                    
-                    ?>
+                
                     <div class="modal-body">
                         <fieldset class="form-label-group">
-                            <input type="hidden" name="myID" id="myID" class="form-control"  value="<?php echo $maty_data['ID'] ?>" required>
+                            <input type="hidden" name="myID" id="myID" class="form-control"  value="<?php echo  $material_data['ID'];  ?>" required>
                             
                         </fieldset>
                         <fieldset class="form-label-group">
-                            <input type="hidden" name="ID" id="ID" class="form-control"  value="<?php echo $material_data['ID'] ?>" required>
+                            <input type="hidden" name="ID" id="ID" class="form-control"  value="<?php echo $material_data['ID']; ?>" required>
                         </fieldset>
                         <table class="tablesorter table">       
                             <tbody>
@@ -210,7 +200,7 @@
                                 <span class="d-none d-lg-block">الغاء</span></button>
                         </fieldset>
                     </div>
-                    <?php }} ?>
+                  
                 </form>
             </section>
         </div>
