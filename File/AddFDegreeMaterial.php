@@ -111,57 +111,12 @@ include('MainPage.php');
 
                             </p>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                            <div class="heading-elements">
-                                <ul class="list-inline mb-0">
-                                    <li><a href="exportFormmiddegree.php"><i class="fa fa-file-excel-o"></i></a></li>
-
-                                </ul>
-                            </div>
+                           
                         </div>
 
                 </div>
                 <!-- users filter start -->
-                <div class="card">
-
-                    <div class="card-content collapse show">
-                        <div class="card-body">
-                            <div class="container">
-                                <h1> رفع الدرجات عن طريق الاكسل</h1>
-                                <br>
-                                <form method="POST" action="uploadstudentFdegreeexcel.php" enctype="multipart/form-data">
-                                    <div class="custom-file">
-                                        <input type="heddin" id="MaterialID" name="MaterialID" value="<?php echo $_GET['id']; ?>" />
-                                        <select name="RoundID" id="RoundID" class="form-control" required>
-                                            <option disabled selected value> الدور </option>
-                                            <?php
-                                            include('../connect.php');
-
-                                            $sql = "SELECT * FROM `rounds` ";
-                                            $yearresult = mysqli_query($link, $sql);
-                                            if (mysqli_num_rows($yearresult) > 0) {
-                                                // output data of each row
-                                                while ($years = mysqli_fetch_assoc($yearresult)) {
-                                                    $num = $years["ID"] . "<br>";
-                                                    $name = $years["Name"] . "<br>";
-                                                    echo "<option value='$num'>" . $name . "</option>";
-                                                }
-                                            } else {
-                                                echo "0 results";
-                                            }
-                                            ?>
-                                        </select>
-                                        <input type="file" class="custom-file-input" id="inputGroupFile01" name="uploadFile">
-                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                    </div>
-                                    <br>
-                                    <div class="form-group">
-                                        <button type="submit" name="submit" class="btn btn-success">Upload</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
                 <!-- users filter end -->
                 <!-- Ag Grid users list section start -->
                 <!-- users list start -->
@@ -182,22 +137,9 @@ include('MainPage.php');
                         <div class="form-label-group p-3">
                             <select name="round" class="form-control" required>
                                 <option disabled selected value> الدور </option>
-                                <?php
-                                include('../connect.php');
-
-                                $sql = "SELECT * FROM `rounds` ";
-                                $roundresult = mysqli_query($link, $sql);
-                                if (mysqli_num_rows($roundresult) > 0) {
-                                    // output data of each row
-                                    while ($round = mysqli_fetch_assoc($roundresult)) {
-                                        $num = $round["ID"] . "<br>";
-                                        $name = $round["Name"] . "<br>";
-                                        echo "<option value='$num'>" . $name . "</option>";
-                                    }
-                                } else {
-                                    echo "0 results";
-                                }
-                                ?>
+                                <option   value=1> الاول </option>
+                                <option   value=2> الثاني </option>
+                                <option   value=3> الثالث </option>
                             </select>
                         </div>
                     </div>
@@ -210,7 +152,7 @@ include('MainPage.php');
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    الرقم
+                                                    <center> الرقم    </center> 
                                                 </th>
                                                 <th>
                                                     <center> الاسم </center>
@@ -218,101 +160,27 @@ include('MainPage.php');
                                                 <th>
                                                     <center> الدرجة </center>
                                                 </th>
-
-
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <tr>
+                                                <th scope="row">
+                                                    <center>
+                                                        
+                                                    </center>
+                                                </th>
+                                                <th scope="row">
+                                                    <center>
 
-                                            <?php
-                                            $subject = $_GET['id'];
-                                            include("../connect.php");
-                                            $q = "SELECT students.Name as Name, students.ID as ID, finaldegree.Degree as findegree 
-                                            FROM students 
-                                            LEFT JOIN finaldegree ON students.ID=finaldegree.Student_Id and finaldegree.Material_Id = '$subject'
-                                            where finaldegree.Round_Id = '1'
-                                            ";
-                                            $query = "SELECT upload.StudentID, upload.MaterialsID , upload.YearID , students.ID as ID, students.Name as Name , materials.EName , years.Name as yname from upload JOIN students on students.ID = upload.StudentID Join materials ON materials.ID = upload.MaterialsID
-                                            join years on upload.YearID = years.ID where materials.ID = '$subject' ";
-                                            $uploads_stu = mysqli_query($link, $query);
+                                                    </center>
+                                                </th>
+                                                <th scop="row">
+                                                    <center>
 
-
-                                            $sql = "SELECT * FROM students where Department_Id =$depn  && Stage=$stg";
-                                            $stu = mysqli_query($link, $q);
-                                            $i = 1;
-                                            $counts = "SELECT count(*) as result FROM students where Department_Id =$depn  && Stage=$stg";
-                                            $std_count = mysqli_query($link, $counts);
-                                            $total = mysqli_fetch_assoc($std_count);
-
-                                            ?>
-                                            <input type="hidden" name="total" value="<?php echo $total['result'] ?>">
-                                            <input type="hidden" name="material" value="<?php echo $_GET['id']; ?>">
-
-                                            <?php
-                                            while ($stu_data =  mysqli_fetch_array($stu)) {
-
-
-                                            ?>
-                                                <tr>
-                                                    <th scope="row">
-                                                        <center>
-                                                            <?php echo $i ?>
-                                                        </center>
-                                                    </th>
-
-                                                    <th scope="row">
-                                                        <center>
-                                                            <?php echo $stu_data['Name'] ?>
-                                                        </center>
-                                                    </th>
-                                                    <th scop="row">
-                                                        <center>
-                                                            <input type="hidden" name="id<?php echo $i ?>" value="<?php echo $stu_data['ID'] ?>">
-                                                            <input type="number" name="inputdegree<?php echo $stu_data['ID'] ?>" id="inputdegree<?php echo $stu_data['ID'] ?>" value="<?php echo $stu_data['findegree'] ?>" class="form-control input-mar" style="margin-bottom: 10px;" placeholder="الدرجة النهائية" max="<?php echo $degree ?>" min="0">
-
-                                                        </center>
-
-                                                    </th>
-
-
-
-                                                </tr>
-                                            <?php
-                                                $i++;
-                                            }
-                                            ?>
-                                            <?php
-                                            while ($uploads_student =  mysqli_fetch_array($uploads_stu)) {
-
-
-                                            ?>
-                                                <tr>
-                                                    <th scope="row">
-                                                        <center>
-                                                            <?php echo $i ?>
-                                                        </center>
-                                                    </th>
-
-                                                    <th scope="row">
-                                                        <center>
-                                                            <?php echo $uploads_student['Name'] ?> <p style="color:red"> تحميل </p>
-                                                        </center>
-                                                    </th>
-                                                    <th scop="row">
-                                                        <center>
-                                                            <input type="hidden" name="id<?php echo $i ?>" value="<?php echo $uploads_student['ID'] ?>">
-                                                            <input type="number" name="inputdegree<?php echo $uploads_student['ID'] ?>" id="inputdegree<?php echo $uploads_student['ID'] ?>" class="form-control input-mar" style="margin-bottom: 10px;" placeholder="درجة السعي" max="<?php echo $degree ?>" min="0" value="<?php echo $uploads_student['middegree']; ?>">
-                                                        </center>
-
-                                                    </th>
-
-
-                                                </tr>
-                                            <?php
-                                                $i++;
-                                            }
-                                            ?>
-
+                                                    </center>
+                                                </th>
+                                            </tr>
+                                       
                                         </tbody>
                                     </table>
                                 </div>

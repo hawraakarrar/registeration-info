@@ -1,0 +1,75 @@
+
+   <table class="table" style="
+   border: 1px solid black;
+
+   
+   " bordered="1">  
+                    <tr style="
+                    border: 1px solid black;
+                 
+                    
+                    ">  
+                         <th>الاسم</th> 
+                         <th>القسم</th>  
+                         <th>الرقم الامتحاني</th>   
+                         <th> الجنس </th>
+                         <th>تاريخ التولد</th>  
+                         <th> رقم الهاتف </th>
+                         <th>الحاله </th>  
+                         <th>ايميل  </th> 
+                         <th>   سنة القبول  </th>
+
+                  
+                    </tr>
+  
+    <tr style="
+    border: 1px solid black;
+ 
+    
+    ">  
+                         <td>كمنتا</td>  
+                         <td>ادارة انظمة معلوماتية</td>
+                         <td>98765</td>  
+                         <td>F</td>
+                         <td>2021-08-10</td>
+                         <td>0987654</td>
+                         <td>وةى</td>
+                         <td>منتال</td>
+                         <td>2021</td>
+                         				
+                    </tr>
+   
+    <tr style="
+    border: 1px solid black;
+ 
+    
+    ">  
+                         <td>كمنتا2</td>  
+                         <td>ادارة انظمة معلوماتية</td>
+                         <td>98765</td>  
+                         <td>ذكر</td>
+                         <td>2021-08-18</td>
+                         <td>0987654</td>
+                         <td>وةى</td>
+                         <td>منتال</td>
+                         <td>2021</td>
+                         				
+                    </tr>
+   
+    <tr style="
+    border: 1px solid black;
+ 
+    
+    ">  
+                         <td>كمنتا3</td>  
+                         <td>ادارة انظمة معلوماتية</td>
+                         <td>98765</td>  
+                         <td>F</td>
+                         <td>2021-08-19</td>
+                         <td>0987654</td>
+                         <td>وةى</td>
+                         <td>منتال</td>
+                         <td>2021</td>
+                         				
+                    </tr>
+   </table>
